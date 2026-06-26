@@ -1,0 +1,64 @@
+# ===========================
+# Python
+# ===========================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+venv/
+backend/venv/
+.env
+
+# ===========================
+# Database
+# ===========================
+
+*.db
+*.sqlite3
+
+# ===========================
+# Frontend
+# ===========================
+
+frontend/node_modules/
+
+# ===========================
+# VS Code
+# ===========================
+
+.vscode/
+
+# ===========================
+# OS Files
+# ===========================
+
+.DS_Store
+Thumbs.db
+
+# ===========================
+# Logs
+# ===========================
+
+*.log
+
+# ===========================
+# Build
+# ===========================
+
+dist/
+build/
+
+# Large ML model files
+backend/trained_models/**/*.safetensors
+backend/trained_models/**/training_args.bin
+
+backend/venv/
+frontend/node_modules/
+__pycache__/
+*.db
+.env
+
+backend/trained_models/**/*.safetensors
+backend/trained_models/**/training_args.bin

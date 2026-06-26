@@ -1,0 +1,83 @@
+.intel-container {
+
+    margin-top: 24px;
+
+}
+
+.intel-container h2 {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+    color: #00e5ff;
+
+}
+
+.intel-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 18px;
+
+}
+
+.intel-card {
+
+    background: rgba(15, 23, 42, .82);
+
+    border: 1px solid rgba(0,255,255,.12);
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    transition: .25s;
+
+    backdrop-filter: blur(10px);
+
+}
+
+.intel-card:hover {
+
+    transform: translateY(-4px);
+
+    border-color: #00e5ff;
+
+}
+
+.intel-icon {
+
+    color: #00e5ff;
+
+    font-size: 24px;
+
+    margin-bottom: 12px;
+
+}
+
+.intel-card span {
+
+    display: block;
+
+    color: #9ca3af;
+
+    font-size: 14px;
+
+}
+
+.intel-card h3 {
+
+    margin-top: 8px;
+
+    color: white;
+
+    text-transform: capitalize;
+
+}

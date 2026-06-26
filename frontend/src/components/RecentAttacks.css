@@ -1,0 +1,13 @@
+tbody tr {
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+tbody tr:hover {
+    background: rgba(0, 255, 255, 0.08);
+}
+
+.selected-row {
+    background: rgba(0, 255, 255, 0.16);
+    border-left: 4px solid #00e5ff;
+}

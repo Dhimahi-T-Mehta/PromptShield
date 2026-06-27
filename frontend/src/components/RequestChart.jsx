@@ -12,6 +12,19 @@ function RequestChart({
   blocked,
   allowed,
 }) {
+  
+  if(blocked.length===0 || allowed.length===0){
+      return(
+        <div className="empty-state">
+        📊
+        <h3>No analytics available</h3>
+        <p>
+        No security incidents match the current filters.
+        </p>
+        </div>
+      )
+  }
+  
   const data = [
     {
       name: "Blocked",

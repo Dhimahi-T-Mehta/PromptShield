@@ -1,0 +1,35 @@
+.trend-card {
+
+    background: rgba(18,18,28,.9);
+
+    border: 1px solid rgba(0,255,255,.15);
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    margin-top: 24px;
+
+    backdrop-filter: blur(12px);
+
+}
+
+.trend-card h2{
+
+    color:#00e5ff;
+
+    margin-bottom:18px;
+
+    text-align:center;
+
+}
+
+.trend-loading{
+
+    color:#9ca3af;
+
+    text-align:center;
+
+    padding:60px;
+
+}

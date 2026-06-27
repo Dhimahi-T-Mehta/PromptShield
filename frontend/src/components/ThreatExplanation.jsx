@@ -8,8 +8,9 @@ import {
     FaInfoCircle,
     FaCheckCircle
 } from "react-icons/fa";
-
+import { useState } from "react";
 import "./ThreatExplanation.css";
+import { exportIncident } from "../utils/exportIncident";
 
 function ThreatExplanation({ attack }) {
 
@@ -19,7 +20,7 @@ function ThreatExplanation({ attack }) {
 
                 <h2>
                     <FaShieldAlt />
-                    Threat Explanation
+                    Incident Details
                 </h2>
 
                 <div className="empty-state">
@@ -33,24 +34,133 @@ function ThreatExplanation({ attack }) {
 
     const explanation = attack.explanation || {};
 
+    const [copied, setCopied] = useState(false);
+
+    const severity = explanation.severity || "LOW";
+
     const severityClass =
         explanation.severity?.toLowerCase() || "low";
 
+    const modules = explanation.detection_modules || [];
+    const matchedKeywords = explanation.matched_keywords || [];    
+    
+    const copyPrompt = async () => {
+
+    if (!attack?.prompt) return;
+
+    try {
+
+        await navigator.clipboard.writeText(attack.prompt);
+
+        setCopied(true);
+
+        setTimeout(() => {
+
+            setCopied(false);
+
+        }, 2000);
+
+    } catch (error) {
+
+        console.error("Copy failed:", error);
+
+    }
+
+};
+    
     return (
 
         <div className="threat-explanation-card">
 
             <h2>
                 <FaShieldAlt />
-                Threat Explanation
+                Incident Details
             </h2>
 
-            <div className="severity-wrapper">
-                <span className={`severity-badge ${severityClass}`}>
-                    {explanation.severity}
-                </span>
+            <div className="overview-grid">
+
+                <div className="overview-item">
+                    <span>🚨 Attack Type</span>
+                    <strong>{attack.attack_type?.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
+                    </strong>
+                </div>
+
+                <div className="overview-item">
+                    <span>🛑 Action</span>
+                    <span className={`action-badge ${attack.action.toLowerCase()}`}>
+                        {attack.action}
+                    </span>
+                </div>
+
+                <div className="overview-item">
+                    <span>⚠ Severity</span>
+
+                    <div
+                        className={`severity-badge ${severity.toLowerCase()}`}
+                    >
+                        {severity}
+                    </div>
+
+                </div>
+
+                <div className="overview-item">
+                    <span>📊 Risk Score</span>
+                    <strong>{attack.risk_score}</strong>
+                </div>
+
+                <div className="overview-item">
+                    <span>🎯 Confidence</span>
+                    <strong>{Math.round(attack.confidence * 100)}%</strong>
+                </div>
+
+                <div className="overview-item timestamp-item">
+                    <span>🕒 Timestamp</span>
+                    <strong>{attack.timestamp}</strong>
+                </div>
+
+        </div>
+
+        <hr className="section-divider" />
+
+        <div className="explanation-section">
+
+            <div className="prompt-header">
+
+    <div className="info-row">
+
+        💬
+
+        <span>Original Prompt</span>
+
+    </div>
+
+    <div className="prompt-actions">
+
+        <button
+            className={`copy-btn ${copied ? "copied" : ""}`}
+            onClick={copyPrompt}
+        >
+            {copied ? "✔ Copied!" : "📋 Copy"}
+        </button>
+
+        <button
+            className="export-btn"
+            onClick={() => exportIncident(attack)}
+        >
+            📄 Export
+        </button>
+
+    </div>
+
+</div>
+            <div className="prompt-box">
+
+                {attack.prompt}
+
             </div>
 
+        </div>    
+<hr className="section-divider" />
             <section className="explanation-section">
 
                 <div className="info-row">
@@ -61,7 +171,7 @@ function ThreatExplanation({ attack }) {
                 <p>{explanation.summary}</p>
 
             </section>
-
+<hr className="section-divider" />
             <section className="explanation-section">
 
                 <div className="info-row">
@@ -72,7 +182,7 @@ function ThreatExplanation({ attack }) {
                 <p>{explanation.reason}</p>
 
             </section>
-
+<hr className="section-divider" />
             <section className="explanation-section">
 
                 <div className="info-row">
@@ -82,22 +192,25 @@ function ThreatExplanation({ attack }) {
 
                 <ul className="explanation-list">
 
-                    {explanation.detection_modules?.map((module, index) => (
+                    <div className="chip-container">
 
-                        <li key={index}>
+                        {modules.map(module => (
 
-                            <FaCheckCircle className="list-icon" />
+                            <span
+                                key={module}
+                                className="keyword-chip"
+                            >
+                                🛡 {module}
+                            </span>
 
-                            {module}
+                        ))}
 
-                        </li>
-
-                    ))}
+                    </div>
 
                 </ul>
 
             </section>
-
+<hr className="section-divider" />
             {explanation.matched_keywords?.length > 0 && (
 
                 <section className="explanation-section">
@@ -109,17 +222,20 @@ function ThreatExplanation({ attack }) {
 
                     <ul className="explanation-list">
 
-                        {explanation.matched_keywords.map((keyword, index) => (
+                        <div className="chip-container">
 
-                            <li key={index}>
+                            {matchedKeywords.map(keyword => (
 
-                                <FaCheckCircle className="list-icon" />
+                                <span
+                                    className="keyword-chip"
+                                    key={keyword}
+                                >
+                                    {keyword}
+                                </span>
 
-                                {keyword}
+                            ))}
 
-                            </li>
-
-                        ))}
+                        </div>
 
                     </ul>
 
@@ -155,7 +271,7 @@ function ThreatExplanation({ attack }) {
                 </section>
 
             )}
-
+<hr className="section-divider" />
             <section className="explanation-section">
 
                 <div className="info-row">
@@ -166,7 +282,7 @@ function ThreatExplanation({ attack }) {
                 <p>{explanation.recommended_action}</p>
 
             </section>
-
+<hr className="section-divider" />
             <section className="explanation-section">
 
                 <div className="info-row">

@@ -19,112 +19,61 @@ function HeroSection({
 
         <div className="hero-section">
 
-            <div className="hero-left">
+    <div className="hero-left">
 
-                <div className="hero-logo">
+        <div className="hero-stat">
+            <FaCircle className="online-dot" />
+            <span>Protection Active</span>
+        </div>
 
-                    <FaShieldAlt />
+        <div className="hero-stat">
+            <FaRobot />
+            <strong>Threat Level:</strong>
+            <span>{threatLevel}</span>
+        </div>
 
-                </div>
+        <div className="hero-stat">
+            <FaShieldAlt />
+            <strong>Protection Score:</strong>
+            <span>{protectionScore}%</span>
+        </div>
 
-                <div>
+        <div className="hero-stat">
+            <FaDatabase />
+            <strong>Last Updated:</strong>
+            <span>{lastUpdated}</span>
+        </div>
 
-                    <h1>
+    </div>
 
-                        PROMPTSHIELD
+    <div className="hero-right">
 
-                    </h1>
+        <div className="hero-title">
 
-                    <h2>
+            <FaShieldAlt className="hero-logo"/>
 
-                        AI SECURITY MIDDLEWARE
+            <div>
 
-                    </h2>
+                <h1>PROMPTSHIELD</h1>
 
-                    <p>
-
-                        Enterprise-grade LLM Firewall for detecting
-                        Prompt Injection, Jailbreak Attacks,
-                        PII Extraction, Role Manipulation and
-                        Prompt Sanitization in real time.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div className="hero-right">
-
-                <div className="hero-stat">
-
-                    <FaCircle className="online-dot" />
-
-                    <span>
-
-                        Protection Active
-
-                    </span>
-
-                </div>
-
-                <div className="hero-stat">
-
-                    <FaRobot />
-
-                    <strong>
-
-                        Threat Level:
-
-                    </strong>
-
-                    <span>
-
-                        {threatLevel}
-
-                    </span>
-
-                </div>
-
-                <div className="hero-stat">
-
-                    <FaShieldAlt />
-
-                    <strong>
-
-                        Protection Score:
-
-                    </strong>
-
-                    <span>
-
-                        {protectionScore}%
-
-                    </span>
-
-                </div>
-
-                <div className="hero-stat">
-
-                    <FaDatabase />
-
-                    <strong>
-
-                        Last Updated:
-
-                    </strong>
-
-                    <span>
-
-                        {lastUpdated}
-
-                    </span>
-
-                </div>
+                <h2>AI SECURITY MIDDLEWARE</h2>
 
             </div>
 
         </div>
+
+        <p>
+
+            Enterprise-grade LLM Firewall for detecting
+            Prompt Injection, Jailbreak Attacks,
+            PII Extraction, Role Manipulation and
+            Prompt Sanitization in real time.
+
+        </p>
+
+    </div>
+
+</div>
 
     );
 

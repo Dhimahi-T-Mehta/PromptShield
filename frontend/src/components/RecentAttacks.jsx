@@ -1,6 +1,20 @@
 const getAttackClass = (
   attackType
 ) => {
+
+  if(attackType.length===0){
+      return(
+        <div className="empty-state">
+        🛡
+        <h3>No Incidents Found</h3>
+        <p>
+        No security incidents match the current filters.
+        </p>
+        </div>
+      )
+    }
+
+
   switch (attackType) {
     case "safe":
       return "safe-tag";

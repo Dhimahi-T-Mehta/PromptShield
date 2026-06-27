@@ -1,0 +1,46 @@
+.module-card{
+
+    margin-top:24px;
+
+    background:rgba(18,18,28,.90);
+
+    border:1px solid rgba(0,255,255,.15);
+
+    border-radius:16px;
+
+    padding:20px;
+
+    backdrop-filter:blur(12px);
+
+}
+
+.module-card h2{
+
+    color:#00e5ff;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+.module-loading{
+
+    color:#9ca3af;
+
+    text-align:center;
+
+    padding:60px;
+
+}
+.module-total{
+
+    color:#9CA3AF;
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+    font-size:15px;
+
+}

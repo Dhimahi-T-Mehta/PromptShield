@@ -11,3 +11,23 @@ tbody tr:hover {
     background: rgba(0, 255, 255, 0.16);
     border-left: 4px solid #00e5ff;
 }
+.recent-attacks{
+
+    overflow-y:auto;
+    max-height:640px;
+    overflow-x:hidden;
+
+}
+.recent-attacks table{
+
+    width:100%;
+
+    table-layout:fixed;
+
+}
+.recent-attacks td,
+.recent-attacks th{
+
+    white-space:nowrap;
+
+}

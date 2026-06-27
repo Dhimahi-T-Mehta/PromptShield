@@ -1,6 +1,6 @@
 import json
 from collections import Counter
-
+from datetime import datetime, timedelta
 from app.database.db import get_connection
 
 def get_total_requests():
@@ -86,13 +86,14 @@ def get_recent_attacks(limit=10):
     cursor.execute("""
         SELECT
             timestamp,
+            prompt,
             attack_type,
             confidence,
             risk_score,
             action,
             explanation
         FROM attack_logs
-        ORDER BY id DESC
+        ORDER BY timestamp DESC
         LIMIT ?
     """, (limit,))
 
@@ -106,29 +107,31 @@ def get_recent_attacks(limit=10):
 
         explanation = {}
 
-        if row[5]:
+        if row[6]:
+
             try:
-                explanation = json.loads(row[5])
+
+                explanation = json.loads(row[6])
+
             except json.JSONDecodeError:
+
                 explanation = {}
 
         attacks.append({
 
             "timestamp": row[0],
-
-            "attack_type": row[1],
-
-            "confidence": round(row[2], 4),
-
-            "risk_score": row[3],
-
-            "action": row[4],
-
+            "prompt": row[1],
+            "attack_type": row[2],
+            "confidence": row[3],
+            "risk_score": row[4],
+            "action": row[5],
             "explanation": explanation
 
         })
 
     return attacks
+
+
 
 def get_threat_trends():
 
@@ -137,11 +140,12 @@ def get_threat_trends():
 
     cursor.execute("""
         SELECT
-            DATE(timestamp),
-            COUNT(*),
-            SUM(CASE WHEN action='BLOCK' THEN 1 ELSE 0 END),
-            SUM(CASE WHEN action='ALLOW' THEN 1 ELSE 0 END)
+            DATE(timestamp) AS day,
+            COUNT(*) AS requests,
+            SUM(CASE WHEN action='BLOCK' THEN 1 ELSE 0 END) AS blocked,
+            SUM(CASE WHEN action='ALLOW' THEN 1 ELSE 0 END) AS allowed
         FROM attack_logs
+        WHERE DATE(timestamp) >= DATE('now', '-6 days')
         GROUP BY DATE(timestamp)
         ORDER BY DATE(timestamp)
     """)
@@ -150,15 +154,66 @@ def get_threat_trends():
 
     conn.close()
 
-    trends = []
+    # ----------------------------------------
+    # Convert SQL result to dictionary
+    # ----------------------------------------
+
+    db_data = {}
 
     for row in rows:
 
-        trends.append({
-            "date": row[0],
+        db_data[row[0]] = {
+
             "requests": row[1],
+
             "blocked": row[2] or 0,
-            "allowed": row[3] or 0,
+
+            "allowed": row[3] or 0
+
+        }
+
+    # ----------------------------------------
+    # Always return last 7 days
+    # ----------------------------------------
+
+    trends = []
+
+    today = datetime.now().date()
+
+    for i in range(6, -1, -1):
+
+        day = today - timedelta(days=i)
+
+        day_str = day.strftime("%Y-%m-%d")
+
+        display = day.strftime("%b %d")
+
+        values = db_data.get(
+
+            day_str,
+
+            {
+
+                "requests": 0,
+
+                "blocked": 0,
+
+                "allowed": 0
+
+            }
+
+        )
+
+        trends.append({
+
+            "date": display,
+
+            "requests": values["requests"],
+
+            "blocked": values["blocked"],
+
+            "allowed": values["allowed"]
+
         })
 
     return trends
@@ -248,3 +303,51 @@ def get_threat_intelligence():
         "blocked_percentage": blocked_percentage,
 
     }
+
+def get_detection_module_stats():
+    """
+    Returns how many incidents were detected by each security module.
+    """
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT explanation
+        FROM attack_logs
+        WHERE explanation IS NOT NULL
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    module_counts = {
+        "DistilBERT": 0,
+        "Presidio": 0,
+        "Jailbreak Rule Engine": 0,
+        "Role Manipulation Rule Engine": 0,
+    }
+
+    import json
+
+    for row in rows:
+
+        if not row[0]:
+            continue
+
+        try:
+
+            explanation = json.loads(row[0])
+
+            modules = explanation.get("detection_modules", [])
+
+            for module in modules:
+
+                if module in module_counts:
+                    module_counts[module] += 1
+
+        except Exception:
+            continue
+
+    return module_counts

@@ -10,8 +10,9 @@ from app.services.analytics import (
     get_allowed_requests,
     get_attack_distribution,
     get_recent_attacks,
-    get_threat_trends,
     get_threat_intelligence,
+    get_threat_trends,
+    get_detection_module_stats,
 )
 from app.detectors.role_detector import detect_role_manipulation
 from app.detectors.risk_engine import calculate_risk
@@ -291,3 +292,11 @@ def threat_trends():
 def threat_intelligence():
 
     return get_threat_intelligence()
+
+@router.get("/dashboard/detection-modules")
+def detection_module_statistics():
+    """
+    Returns statistics for each detection module.
+    """
+
+    return get_detection_module_stats()

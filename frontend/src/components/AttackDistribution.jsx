@@ -20,7 +20,25 @@ const formatLabel = (name) =>
     .replace(/_/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());
 
-function AttackDistribution({ data }) {
+function AttackDistribution({ data = [] }) {
+
+  if(data.length===0){
+      return(
+        <div className="empty-state">
+        📊
+        <h3>No analytics available</h3>
+        <p>
+        No security incidents match the current filters.
+        </p>
+        </div>
+      )
+  }
+
+  if (!Array.isArray(data)) {
+
+    data = [];
+
+  }
   return (
     <div className="chart-card">
       <h2>Attack Distribution</h2>

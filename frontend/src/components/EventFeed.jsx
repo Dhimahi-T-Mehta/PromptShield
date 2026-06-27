@@ -1,6 +1,20 @@
 function EventFeed({
   attacks,
 }) {
+
+ if(attacks.length===0){
+      return(
+        <div className="empty-state">
+        📡
+        <h3>No Recent Security Events</h3>
+        <p>
+        No security incidents match the current filters.
+        </p>
+        </div>
+      )
+  }
+
+
   const latest =
     attacks.slice(0, 5);
 

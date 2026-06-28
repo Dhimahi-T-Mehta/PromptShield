@@ -16,3 +16,5 @@ numpy
 pandas
 joblib
 spacy
+google-generativeai
+python-dotenv

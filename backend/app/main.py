@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import router
+from app.api import chat_routes
 
 app = FastAPI(
     title="PromptShield",
@@ -21,6 +22,12 @@ app.add_middleware(
 
 app.include_router(
     router,
+    prefix="/api/v1"
+)
+
+
+app.include_router(
+    chat_routes.router,
     prefix="/api/v1"
 )
 

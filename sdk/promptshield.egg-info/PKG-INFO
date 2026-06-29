@@ -1,0 +1,88 @@
+Metadata-Version: 2.4
+Name: promptshield
+Version: 1.0.0
+Summary: Official Python SDK for PromptShield
+Home-page: https://github.com/Dhimahi-T-Mehta/PromptShield
+Author: Dhimahi Mehta
+Author-email: your-email@example.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Security
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.31.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# 🛡️ PromptShield Python SDK
+
+Official Python SDK for interacting with PromptShield.
+
+The SDK enables developers to:
+
+- 🔍 Scan prompts for security threats
+- 🤖 Send prompts through the PromptShield secure chat pipeline
+- ❤️ Check PromptShield server health
+- ⚙️ Configure providers and SDK behavior
+- 🚀 Integrate PromptShield into any Python application
+
+---
+
+## Installation
+
+```bash
+pip install promptshield
+```
+
+## Quick Start
+
+```python
+from promptshield import PromptShield
+
+shield = PromptShield()
+
+response = shield.chat(
+    "Explain Artificial Intelligence."
+)
+
+print(response.response)
+```
+
+---
+
+## Features
+
+- Prompt Injection Detection
+- Jailbreak Detection
+- PII Detection
+- Prompt Sanitization
+- Secure LLM Middleware
+- Multi-Provider Support
+- Response Guard
+- Developer-Friendly Python SDK
+
+---
+
+## Examples
+
+```bash
+python examples/scan_example.py
+python examples/chat_example.py
+python examples/health_example.py
+python examples/configuration_example.py
+python examples/advanced_example.py
+```

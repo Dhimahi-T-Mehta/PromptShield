@@ -107,3 +107,12 @@ def detection_module_statistics():
     """
 
     return get_detection_module_stats()
+
+@router.get("/health")
+async def health():
+
+    return {
+        "status": "healthy",
+        "version": "1.0.0",
+        "provider": "gemini"
+    }

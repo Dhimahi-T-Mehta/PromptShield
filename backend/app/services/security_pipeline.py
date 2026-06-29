@@ -30,7 +30,7 @@ class SecurityPipeline:
         "BANK_ACCOUNT",
     }
 
-    def analyze_prompt(self, prompt: str) -> dict:
+    def analyze_prompt(self, prompt: str) -> SecurityAnalysis:
 
         # ======================================================
         # Phase 1 - PII Detection
@@ -114,14 +114,14 @@ class SecurityPipeline:
                 explanation,
             )
 
-            return {
-                "attack_type": attack_type,
-                "confidence": confidence,
-                "risk_score": risk_score,
-                "action": action,
-                "matched_keywords": jailbreak_result["matched_keywords"],
-                "explanation": explanation,
-            }
+            return SecurityAnalysis(
+                attack_type=attack_type,
+                confidence=confidence,
+                risk_score=risk_score,
+                action=action,
+                matched_keywords=jailbreak_result["matched_keywords"],
+                explanation=explanation,
+            )
 
         # ======================================================
         # Phase 3 - Role Manipulation
@@ -155,14 +155,14 @@ class SecurityPipeline:
                 explanation,
             )
 
-            return {
-                "attack_type": attack_type,
-                "confidence": confidence,
-                "risk_score": risk_score,
-                "action": action,
-                "matched_patterns": role_result["matched_patterns"],
-                "explanation": explanation,
-            }
+            return SecurityAnalysis(
+                attack_type=attack_type,
+                confidence=confidence,
+                risk_score=risk_score,
+                action=action,
+                matched_patterns=role_result["matched_patterns"],
+                explanation=explanation,
+            )
 
         # ======================================================
         # Phase 4 - DistilBERT Classification

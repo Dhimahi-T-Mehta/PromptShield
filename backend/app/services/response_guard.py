@@ -14,14 +14,14 @@ class ResponseGuard:
     Security layer for outgoing LLM responses.
     """
 
-    HIGH_RISK_ENTITIES = {
+    HIGH_RISK_RESPONSE_ENTITIES = {
         "EMAIL_ADDRESS",
         "PHONE_NUMBER",
         "CREDIT_CARD",
-        "AADHAAR",
         "PAN",
-        "IFSC",
+        "AADHAAR",
         "BANK_ACCOUNT",
+        "IFSC",
     }
 
     def analyze_response(
@@ -39,6 +39,7 @@ class ResponseGuard:
             {
                 entity["entity_type"]
                 for entity in pii_result["entities"]
+                if entity["entity_type"] in self.HIGH_RISK_RESPONSE_ENTITIES
             }
         )
 

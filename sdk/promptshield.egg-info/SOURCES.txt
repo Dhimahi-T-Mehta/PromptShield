@@ -5,6 +5,7 @@ pyproject.toml
 requirements.txt
 setup.py
 promptshield/__init__.py
+promptshield/cli.py
 promptshield/client.py
 promptshield/config.py
 promptshield/exceptions.py
@@ -14,5 +15,6 @@ promptshield/version.py
 promptshield.egg-info/PKG-INFO
 promptshield.egg-info/SOURCES.txt
 promptshield.egg-info/dependency_links.txt
+promptshield.egg-info/entry_points.txt
 promptshield.egg-info/requires.txt
 promptshield.egg-info/top_level.txt

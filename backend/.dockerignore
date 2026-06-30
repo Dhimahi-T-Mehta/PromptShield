@@ -1,79 +1,105 @@
 # ==========================================
-# PromptShield - .gitignore
+# Git
 # ==========================================
+
+.git
+.gitignore
 
 # ==========================================
 # Python
 # ==========================================
+
 __pycache__/
-*.py[cod]
+*.pyc
 *.pyo
 *.pyd
-*.egg-info/
-.pytest_cache/
+
 .venv/
 venv/
-backend/venv/
 
 # ==========================================
-# Environment Variables
+# Environment
 # ==========================================
+
 .env
 .env.*
 
 # ==========================================
-# Databases
+# IDE
 # ==========================================
-*.db
-*.sqlite3
+
+.vscode/
+.idea/
 
 # ==========================================
-# Node.js
+# Logs
 # ==========================================
-node_modules/
-frontend/node_modules/
+
+*.log
 
 # ==========================================
-# Build & Distribution
+# Python cache
 # ==========================================
+
+.pytest_cache/
+.mypy_cache/
+
+# ==========================================
+# Build
+# ==========================================
+
 build/
 dist/
 *.egg-info/
 
 # ==========================================
-# Logs
+# Database
 # ==========================================
-*.log
 
-# ==========================================
-# VS Code
-# ==========================================
-.vscode/
-
-# ==========================================
-# Operating System
-# ==========================================
-.DS_Store
-Thumbs.db
-
-# ==========================================
-# Docker
-# ==========================================
-.docker/
-
-# ==========================================
-# Large ML Model Files
-# ==========================================
-backend/trained_models/**/*.safetensors
-backend/trained_models/**/training_args.bin
-
-# ==========================================
-# Python Package Artifacts
-# ==========================================
-*.whl
-*.tar.gz
+*.db
+*.sqlite3
 
 # ==========================================
 # Jupyter
 # ==========================================
+
 .ipynb_checkpoints/
+
+# ==========================================
+# Tests
+# (not needed in production image)
+# ==========================================
+
+test_*.py
+
+# ==========================================
+# Documentation
+# ==========================================
+
+README.md
+LICENSE
+
+# ==========================================
+# Training Artifacts
+# ==========================================
+
+datasets/
+notebooks/
+experiments/
+checkpoints/
+
+# ==========================================
+# Keep only inference model
+# ==========================================
+
+trained_models/**/*.bin
+!trained_models/promptshield_distilbert/model.safetensors
+!trained_models/promptshield_distilbert/config.json
+!trained_models/promptshield_distilbert/tokenizer.json
+!trained_models/promptshield_distilbert/tokenizer_config.json
+
+# ==========================================
+# Node
+# ==========================================
+
+node_modules/

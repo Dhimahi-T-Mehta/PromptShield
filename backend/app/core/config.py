@@ -4,20 +4,22 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-
-    LLM_PROVIDER: str = "gemini"
-
-    GEMINI_API_KEY: str = ""
+    GEMINI_API_KEY: str
 
     GEMINI_MODEL: str = "gemini-2.5-flash"
 
-    OPENAI_API_KEY: str = ""
+    LLM_PROVIDER: str = "gemini"
 
-    OLLAMA_BASE_URL: str = "http://localhost:11434"
+    DATABASE_PATH: str = "/app/promptshield.db"
+
+    HOST: str = "0.0.0.0"
+    PORT: int = 8000
+
+    ENVIRONMENT: str = "development"
 
     model_config = SettingsConfigDict(
         env_file=".env",
-        extra="ignore",
+        extra="ignore"
     )
 
 

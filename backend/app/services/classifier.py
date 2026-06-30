@@ -1,19 +1,19 @@
 import torch
 
 from transformers import (
-    DistilBertTokenizer,
-    DistilBertForSequenceClassification
+    AutoTokenizer,
+    AutoModelForSequenceClassification
 )
 
 from app.core.label_mapping import LABEL_MAP
 
 MODEL_PATH = "trained_models/promptshield_distilbert"
 
-tokenizer = DistilBertTokenizer.from_pretrained(
+tokenizer = AutoTokenizer.from_pretrained(
     MODEL_PATH
 )
 
-model = DistilBertForSequenceClassification.from_pretrained(
+model = AutoModelForSequenceClassification.from_pretrained(
     MODEL_PATH
 )
 

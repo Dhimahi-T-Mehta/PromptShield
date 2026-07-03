@@ -1,0 +1,6 @@
+OVERVIEW = "dashboard:overview"
+ATTACK_DISTRIBUTION = "dashboard:attack_distribution"
+THREAT_TRENDS = "dashboard:threat_trends"
+THREAT_INTELLIGENCE = "dashboard:threat_intelligence"
+DETECTION_MODULES = "dashboard:detection_modules"
+RECENT_ATTACKS = "dashboard:recent_attacks"

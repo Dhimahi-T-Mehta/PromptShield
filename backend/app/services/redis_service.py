@@ -5,8 +5,9 @@ import os
 import redis
 from redis.exceptions import RedisError
 
-logger = logging.getLogger(__name__)
+from app.core import cache_keys
 
+logger = logging.getLogger(__name__)
 
 class RedisService:
     """
@@ -79,12 +80,12 @@ class RedisService:
         try:
             value = self.client.get(key)
 
-            if value is not None:
-                logger.info(f"Redis HIT: {key}")
-            else:
+            if value is None:
                 logger.info(f"Redis MISS: {key}")
+                return None
 
-            logger.info(f"Redis SET: {key}")
+            logger.info(f"Redis HIT: {key}")
+
             return json.loads(value)
             
         except RedisError:
@@ -120,5 +121,20 @@ class RedisService:
         except RedisError:
             logger.warning("Redis DELETE failed.")
 
+    def invalidate_dashboard_cache(self):
+        """
+        Remove all dashboard-related cache entries.
+        """
+
+        self.delete(
+            cache_keys.OVERVIEW,
+            cache_keys.ATTACK_DISTRIBUTION,
+            cache_keys.THREAT_TRENDS,
+            cache_keys.THREAT_INTELLIGENCE,
+            cache_keys.DETECTION_MODULES,
+            cache_keys.RECENT_ATTACKS,
+        )
+
+        logger.info("Redis dashboard cache invalidated.")
 
 redis_service = RedisService()

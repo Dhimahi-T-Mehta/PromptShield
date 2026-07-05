@@ -194,8 +194,16 @@ def detection_module_statistics():
 @router.get("/health")
 async def health():
 
+    redis_connected = redis_service.health_check()
+
     return {
-        "status": "healthy",
+        "status": "healthy" if redis_connected else "degraded",
         "version": "1.0.0",
-        "provider": "gemini"
+        "provider": "gemini",
+        "services": {
+            "redis": {
+                "status": "healthy" if redis_connected else "unavailable",
+                "connected": redis_connected,
+            }
+        },
     }

@@ -1,6 +1,6 @@
 from app.services.classifier import classify_prompt
 from app.services.logger import log_attack
-
+from app.services.redis_service import redis_service
 from app.detectors.risk_engine import calculate_risk
 from app.detectors.jailbreak_detector import detect_jailbreak
 from app.detectors.role_detector import detect_role_manipulation
@@ -72,6 +72,8 @@ class SecurityPipeline:
                 explanation,
             )
 
+            redis_service.invalidate_dashboard_cache()
+
             return SecurityAnalysis(
                 attack_type=attack_type,
                 confidence=confidence,
@@ -114,6 +116,8 @@ class SecurityPipeline:
                 explanation,
             )
 
+            redis_service.invalidate_dashboard_cache()
+
             return SecurityAnalysis(
                 attack_type=attack_type,
                 confidence=confidence,
@@ -154,6 +158,8 @@ class SecurityPipeline:
                 action,
                 explanation,
             )
+
+            redis_service.invalidate_dashboard_cache()
 
             return SecurityAnalysis(
                 attack_type=attack_type,
@@ -201,6 +207,8 @@ class SecurityPipeline:
             action,
             explanation,
         )
+
+        redis_service.invalidate_dashboard_cache()
 
         return SecurityAnalysis(
             attack_type=attack_type,

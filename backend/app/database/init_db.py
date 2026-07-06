@@ -1,5 +1,5 @@
 from app.database.db import get_connection
-
+from app.database.users import create_users_table
 
 def create_tables():
     conn = get_connection()
@@ -24,4 +24,5 @@ def create_tables():
 
 if __name__ == "__main__":
     create_tables()
+    create_users_table()
     print("Database initialized successfully.")

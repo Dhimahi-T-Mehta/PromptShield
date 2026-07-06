@@ -16,6 +16,12 @@ from app.services.analytics import (
 from app.services.redis_service import redis_service
 from app.core import cache_keys
 
+from fastapi import Depends
+from app.auth.dependencies import (
+    require_user,
+    require_analyst,
+)
+
 OVERVIEW_CACHE_TTL = 60
 ATTACK_DISTRIBUTION_CACHE_TTL = 60
 RECENT_ATTACKS_CACHE_TTL = 30
@@ -33,7 +39,10 @@ pipeline = SecurityPipeline()
 # ============================================================
 
 @router.post("/detect")
-def detect_attack(request: PromptRequest):
+def detect_attack(
+    request: PromptRequest,
+    current_user: dict = Depends(require_user),
+):
     """
     Analyze a prompt using the PromptShield Security Pipeline.
     """
@@ -47,8 +56,9 @@ def detect_attack(request: PromptRequest):
 # ============================================================
 
 @router.get("/dashboard/overview")
-def dashboard_overview():
-
+def dashboard_overview(
+    current_user: dict = Depends(require_analyst),
+):
     # 1. Check Redis first
     cached = redis_service.get(cache_keys.OVERVIEW)
 
@@ -92,7 +102,9 @@ def dashboard_overview():
     return response
 
 @router.get("/dashboard/attack-distribution")
-def attack_distribution():
+def attack_distribution(
+    current_user: dict = Depends(require_analyst),
+):
 
     cached = redis_service.get(cache_keys.ATTACK_DISTRIBUTION)
 
@@ -111,7 +123,9 @@ def attack_distribution():
 
 
 @router.get("/dashboard/recent-attacks")
-def recent_attacks():
+def recent_attacks(
+    current_user: dict = Depends(require_analyst),
+):
 
     cached = redis_service.get(cache_keys.RECENT_ATTACKS)
 
@@ -134,7 +148,9 @@ def recent_attacks():
 # ============================================================
 
 @router.get("/dashboard/threat-trends")
-def threat_trends():
+def threat_trends(
+    current_user: dict = Depends(require_analyst),
+):
 
     cached = redis_service.get(cache_keys.THREAT_TRENDS)
 
@@ -156,7 +172,9 @@ def threat_trends():
 # ============================================================
 
 @router.get("/dashboard/threat-intelligence")
-def threat_intelligence():
+def threat_intelligence(
+    current_user: dict = Depends(require_analyst),
+):
 
     cached = redis_service.get(cache_keys.THREAT_INTELLIGENCE)
 
@@ -174,7 +192,9 @@ def threat_intelligence():
     return data
 
 @router.get("/dashboard/detection-modules")
-def detection_module_statistics():
+def detection_module_statistics(
+    current_user: dict = Depends(require_analyst),
+):
 
     cached = redis_service.get(cache_keys.DETECTION_MODULES)
 

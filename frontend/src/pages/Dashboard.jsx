@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import ThreatExplanation from "../components/ThreatExplanation";
-import HeroSection from "../components/HeroSection";
-import SystemStatus from "../components/SystemStatus";
-import ThreatLevel from "../components/ThreatLevel";
-import KPICards from "../components/KPICards";
-import AttackDistribution from "../components/AttackDistribution";
-import RequestChart from "../components/RequestChart";
-import EventFeed from "../components/EventFeed";
-import RecentAttacks from "../components/RecentAttacks";
-import ThreatIntelCards from "../components/ThreatIntelCards";
-import api from "../services/api";
-import ThreatTrendChart from "../components/ThreatTrendChart";
-import DetectionModuleStats from "../components/DetectionModuleStats";
+import HeroSection from "../components/dashboard/HeroSection";
+import SystemStatus from "../components/dashboard/SystemStatus";
+import ThreatLevel from "../components/dashboard/ThreatLevel";
+import KPICards from "../components/dashboard/KPICards";
+import AttackDistribution from "../components/dashboard/AttackDistribution";
+import RequestChart from "../components/dashboard/RequestChart";
+import RecentAttacks from "../components/dashboard/RecentAttacks";
+import ThreatExplanation from "../components/dashboard/ThreatExplanation";
+import ThreatIntelCards from "../components/dashboard/ThreatIntelCards";
+import ThreatTrendChart from "../components/dashboard/ThreatTrendChart";
+import DetectionModuleStats from "../components/dashboard/DetectionModuleStats";
+import EventFeed from "../components/dashboard/EventFeed";
+import Navbar from "../components/dashboard/Navbar";
+import FilterBar from "../components/dashboard/FilterBar";
+
 import "../styles/dashboard.css";
-import FilterBar from "../components/FilterBar";
+import api from "../services/api";
 import { exportToCSV } from "../utils/exportCSV";
 
 function Dashboard() {

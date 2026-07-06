@@ -40,23 +40,28 @@ transform:none;
 }
 .dashboard {
 
-  position: relative;
+    position: relative;
 
-  min-height: 100vh;
+    min-height: 100vh;
 
-  padding: 30px;
+    padding: 30px;
 
-  background:
-    radial-gradient(
-      circle at top,
-      rgba(0,255,157,0.08),
-      transparent 40%
-    ),
-    #030712;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(0,255,157,.08),
+            transparent 40%
+        ),
+        #030712;
 
-  overflow: hidden;
+    overflow-x: hidden;
 }
-
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+}
 /* =========================
    COMMON GLASS EFFECT
 ========================= */

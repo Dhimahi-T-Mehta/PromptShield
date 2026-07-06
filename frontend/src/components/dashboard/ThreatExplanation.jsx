@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { useState } from "react";
 import "./ThreatExplanation.css";
-import { exportIncident } from "../utils/exportIncident";
+import { exportIncident } from "../../utils/exportIncident";
 
 function ThreatExplanation({ attack }) {
 

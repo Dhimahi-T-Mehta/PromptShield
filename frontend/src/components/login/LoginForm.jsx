@@ -56,8 +56,16 @@ async function handleSubmit(e) {
         });
 
         console.log("Login successful:", user);
-        navigate("/");
 
+        if (user.role === "admin") {
+            navigate("/admin", { replace: true });
+        }
+        else if (user.role === "analyst") {
+            navigate("/analyst", { replace: true });
+        }
+        else {
+            navigate("/chat", { replace: true });
+        }
     }
 
     catch (err) {

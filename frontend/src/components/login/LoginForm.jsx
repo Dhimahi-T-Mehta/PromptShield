@@ -64,7 +64,8 @@ async function handleSubmit(e) {
             navigate("/analyst", { replace: true });
         }
         else {
-            navigate("/chat", { replace: true });
+            setError("This account has no assigned role.");
+            return;
         }
     }
 

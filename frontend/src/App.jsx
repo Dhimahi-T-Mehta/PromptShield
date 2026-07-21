@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import AnalystDashboard from "./pages/AnalystDashboard";
-import UserChat from "./pages/UserChat";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import RoleProtectedRoute from "./routes/RoleProtectedRoute";
@@ -19,15 +18,6 @@ function App() {
                 <Route
                     path="*"
                     element={<Navigate to="/login" replace />}
-                />
-
-                <Route
-                    path="/chat"
-                    element={
-                        <ProtectedRoute>
-                            <UserChat />
-                        </ProtectedRoute>
-                    }
                 />
 
                 <Route
